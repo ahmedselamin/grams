@@ -1,8 +1,9 @@
 global using Grams.Server.Data;
+global using Grams.Server.Models;
+global using Grams.Server.Services.AuthService;
+global using Grams.Server.Services.ImageService;
+global using Grams.Server.Services.PostService;
 global using Microsoft.EntityFrameworkCore;
-using Grams.Server.Services.AuthService;
-using Grams.Server.Services.ImageService;
-using Grams.Server.Services.PostService;
 
 var builder = WebApplication.CreateBuilder(args);
 
