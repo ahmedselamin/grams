@@ -1,12 +1,12 @@
 global using Grams.Server.Data;
 global using Microsoft.EntityFrameworkCore;
+using Grams.Server.Services.AuthService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -14,6 +14,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+//add services to DI scope
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
