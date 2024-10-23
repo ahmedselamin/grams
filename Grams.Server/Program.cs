@@ -2,6 +2,7 @@ global using Grams.Server.Data;
 global using Microsoft.EntityFrameworkCore;
 using Grams.Server.Services.AuthService;
 using Grams.Server.Services.ImageService;
+using Grams.Server.Services.PostService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 //add services to DI scope
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IPostService, PostService>();
 
 var app = builder.Build();
 
