@@ -29,6 +29,7 @@ public class AuthService : IAuthService
 
             user.PasswordHash = passwordHash;
 
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             response.Data = user.Id;
