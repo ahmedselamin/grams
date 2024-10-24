@@ -56,10 +56,18 @@ public class AuthService : IAuthService
         try
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
             if (user == null)
             {
                 response.Success = false;
                 response.Message = "Not found";
+
+                return response;
+            }
+            if (!VerifyPassword(password, user.PasswordHash))
+            {
+                response.Success = false;
+                response.Message = "Wrong password";
 
                 return response;
             }
@@ -111,6 +119,15 @@ public class AuthService : IAuthService
         return await _context.Users.AnyAsync(
             u => u.Username == username
         );
+    }
+
+    private bool VerifyPassword(string password, byte[] passwordHash)
+    {
+        var hmac = new HMACSHA512();
+
+        var computeHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+
+        return computeHash.SequenceEqual(passwordHash);
     }
 
     private void CreatePasswordHash(string password, out byte[] passwordHash)
