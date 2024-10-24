@@ -4,6 +4,6 @@ public class User
 {
     public int Id { get; set; }
     public string Username { get; set; } = string.Empty;
-    public byte[] PasswordHash = new byte[32];
+    public byte[] PasswordHash { get; set; } = new byte[32];
 
 }
