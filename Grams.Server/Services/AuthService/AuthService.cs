@@ -71,11 +71,13 @@ public class AuthService : IAuthService
 
                 return response;
             }
+            else
+            {
+                response.Data = CreateToken(user);
+                response.Message = $"Welcome back, ${user.Username}";
 
-            response.Data = CreateToken(user);
-            response.Message = $"Welcome back, ${user.Username}";
-
-            return response;
+                return response;
+            }
 
         }
         catch (Exception ex)
