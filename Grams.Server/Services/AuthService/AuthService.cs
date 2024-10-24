@@ -47,7 +47,7 @@ public class AuthService : IAuthService
     }
     public Task<ServiceResponse<int>> Login(string username, string password)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<>
     }
 
     private async Task<bool> Exists(string username)
