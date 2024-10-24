@@ -1,4 +1,5 @@
 global using Grams.Server.Data;
+global using Grams.Server.DTOs;
 global using Grams.Server.Models;
 global using Grams.Server.Services.AuthService;
 global using Grams.Server.Services.ImageService;
