@@ -21,7 +21,7 @@ public class ImageController : ControllerBase
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
         var response = await _imageService.UploadImage(userId, file);
 
-        return response.Success ? Ok(response) : BadRequest(response);
+        return response.Success ? Ok(response) : BadRequest(response.Message);
     }
 
     [HttpGet("fetch")]
@@ -29,6 +29,15 @@ public class ImageController : ControllerBase
     {
         var response = await _imageService.GetImages();
 
-        return response.Success ? Ok(response) : BadRequest(response);
+        return response.Success ? Ok(response) : BadRequest(response.Message);
+    }
+
+    [HttpDelete("delete/{id:int}"), Authorize]
+    public async Task<ActionResult> DeleteImage(int id)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var response = await _imageService.DeleteImage(userId, id);
+
+        return response.Success ? Ok(response) : BadRequest(response.Message);
     }
 }
