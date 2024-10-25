@@ -16,7 +16,7 @@ public class ImageController : ControllerBase
     }
 
     [HttpPost("upload"), Authorize]
-    public async Task<ActionResult> UploadImage([FromBody] IFormFile file)
+    public async Task<ActionResult> UploadImage([FromForm] IFormFile file)
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
         var response = await _imageService.UploadImage(userId, file);
