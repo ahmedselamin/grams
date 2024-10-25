@@ -32,6 +32,14 @@ public class ImageController : ControllerBase
         return response.Success ? Ok(response) : BadRequest(response.Message);
     }
 
+    [HttpGet("fetch/{id:int}")]
+    public async Task<ActionResult> FetchImage(int id)
+    {
+        var response = await _imageService.GetImage(id);
+
+        return response.Success ? Ok(response) : BadRequest(response.Message);
+    }
+
     [HttpDelete("delete/{id:int}"), Authorize]
     public async Task<ActionResult> DeleteImage(int id)
     {
