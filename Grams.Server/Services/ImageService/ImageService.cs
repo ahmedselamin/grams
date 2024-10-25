@@ -12,6 +12,54 @@ public class ImageService : IImageService
         _environment = environment;
     }
 
+    public async Task<ServiceResponse<List<Image>>> GetImages()
+    {
+        var response = new ServiceResponse<List<Image>>();
+
+        try
+        {
+            var images = await _context.Images
+                .OrderByDescending(i => i.CreatedAt)
+                .ToListAsync();
+
+            response.Data = images;
+            return response;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+
+            return response;
+        }
+
+    }
+
+    public async Task<ServiceResponse<Image>> GetImage(int imageId)
+    {
+        var response = new ServiceResponse<Image>();
+
+        try
+        {
+            var image = await _context.Images.FirstOrDefaultAsync(i => i.Id == imageId);
+            if (image == null)
+            {
+                response.Success = false;
+                response.Message = "not found";
+                return response;
+            }
+
+            response.Data = image;
+            return response;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+            return response;
+        }
+    }
+
     public async Task<ServiceResponse<Image>> UploadImage(int userId, IFormFile file)
     {
         var response = new ServiceResponse<Image>();
@@ -61,29 +109,6 @@ public class ImageService : IImageService
 
             return response;
 
-        }
-        catch (Exception ex)
-        {
-            response.Success = false;
-            response.Message = ex.Message;
-
-            return response;
-        }
-
-    }
-
-    public async Task<ServiceResponse<List<Image>>> GetImages()
-    {
-        var response = new ServiceResponse<List<Image>>();
-
-        try
-        {
-            var images = await _context.Images
-                .OrderByDescending(i => i.CreatedAt)
-                .ToListAsync();
-
-            response.Data = images;
-            return response;
         }
         catch (Exception ex)
         {
