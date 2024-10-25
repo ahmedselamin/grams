@@ -72,13 +72,18 @@ public class ImageService : IImageService
 
     }
 
-    public Task<ServiceResponse<List<Image>>> GetImages(int userId)
+    public async Task<ServiceResponse<List<Image>>> GetImages()
     {
         var response = new ServiceResponse<List<Image>>();
 
         try
         {
+            var images = await _context.Images
+                .OrderByDescending(i => i.CreatedAt)
+                .ToListAsync();
 
+            response.Data = images;
+            return response;
         }
         catch (Exception ex)
         {
