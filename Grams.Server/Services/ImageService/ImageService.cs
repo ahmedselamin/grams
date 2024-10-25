@@ -18,42 +18,35 @@ public class ImageService : IImageService
 
         try
         {
-            if (file == null)
+            // Check for a valid file
+            if (file == null || file.Length == 0)
             {
                 response.Success = false;
-                response.Message = "Cannot upload null";
+                response.Message = "No file uploaded or file is empty.";
                 return response;
             }
 
-            // Validate file 
-            var validImageTypes = new List<string> { "image/jpeg", "image/png" };
-            if (!validImageTypes.Contains(file.ContentType))
+            // Ensure the "uploads" folder exists
+            var uploadDir = Path.Combine(_environment.WebRootPath ?? "wwwroot", "uploads");
+            if (!Directory.Exists(uploadDir))
             {
-                response.Success = false;
-                response.Message = "Invalid file type.";
-                return response;
+                Directory.CreateDirectory(uploadDir);
             }
 
-            // Ensure uploads folder exists
-            var uploads = Path.Combine(_environment.WebRootPath, "Uploads");
-            if (!Directory.Exists(uploads))
-            {
-                Directory.CreateDirectory(uploads);
-            }
+            // Define a unique file path
+            var uniqueFileName = $"{Guid.NewGuid()}_{file.FileName}";
+            var filePath = Path.Combine(uploadDir, uniqueFileName);
 
-            // Generate unique file name
-            var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine(uploads, uniqueFileName);
-
-            // Save the file
+            // Save the file to disk
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-
+            // Create Image record
             var image = new Image
             {
+                FileName = uniqueFileName,
                 FilePath = filePath,
                 ContentType = file.ContentType,
                 CreatedAt = DateTime.Now,
@@ -67,19 +60,34 @@ public class ImageService : IImageService
             response.Message = "Image uploaded";
 
             return response;
+
         }
         catch (Exception ex)
         {
             response.Success = false;
             response.Message = ex.Message;
+
             return response;
         }
+
     }
 
-
-    public Task<ServiceResponse<Image>> GetImages(int userId)
+    public Task<ServiceResponse<List<Image>>> GetImages(int userId)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<List<Image>>();
+
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+
+            return response;
+        }
+
     }
 
     public Task<ServiceResponse<bool>> DeleteImage(int imageId)
