@@ -95,8 +95,39 @@ public class ImageService : IImageService
 
     }
 
-    public Task<ServiceResponse<bool>> DeleteImage(int imageId)
+    public async Task<ServiceResponse<bool>> DeleteImage(int userId, int imageId)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<bool>();
+
+        try
+        {
+            var image = await _context.Images.FirstOrDefaultAsync(i => i.Id == imageId && i.UserId == userId);
+            if (image == null)
+            {
+                response.Success = false;
+                response.Message = "Not found";
+
+                return response;
+            }
+
+            if (!string.IsNullOrEmpty(image.FilePath) && File.Exists(image.FilePath))  //delete file
+            {
+                File.Delete(image.FilePath);
+            }
+
+            _context.Images.Remove(image);
+            await _context.SaveChangesAsync();
+
+            response.Data = true;
+            return response;
+
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+
+            return response;
+        }
     }
 }
