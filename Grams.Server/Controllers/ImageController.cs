@@ -23,4 +23,12 @@ public class ImageController : ControllerBase
 
         return response.Success ? Ok(response) : BadRequest(response);
     }
+
+    [HttpGet("fetch")]
+    public async Task<ActionResult> FetchImages()
+    {
+        var response = await _imageService.GetImages();
+
+        return response.Success ? Ok(response) : BadRequest(response);
+    }
 }
