@@ -64,6 +64,8 @@ public class ImageService : IImageService
             await _context.SaveChangesAsync();
 
             response.Data = image;
+            response.Message = "Image uploaded";
+
             return response;
         }
         catch (Exception ex)
