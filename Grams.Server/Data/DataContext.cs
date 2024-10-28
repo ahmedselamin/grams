@@ -11,5 +11,10 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
             .HasMany(u => u.Images)
             .WithOne()
             .HasForeignKey(i => i.UserId);
+
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Posts)
+            .WithOne()
+            .HasForeignKey(p => p.UserId);
     }
 }
