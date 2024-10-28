@@ -28,9 +28,29 @@ public class PostService : IPostService
             return response;
         }
     }
-    public Task<ServiceResponse<Post>> GetPost(int PostId)
+    public async Task<ServiceResponse<Post>> GetPost(int PostId)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<Post>();
+
+        try
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == PostId);
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "Not found";
+                return response;
+            }
+
+            response.Data = post;
+            return response;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+            return response;
+        }
     }
     public Task<ServiceResponse<Post>> AddPost(int userId, Post post)
     {
