@@ -13,10 +13,17 @@ public class PostsController : ControllerBase
         _postService = postService;
     }
 
-    [HttpGet]
+    [HttpGet("fetch")]
     public async Task<ActionResult> FetchPosts()
     {
         var response = await _postService.GetPosts();
+        return response.Success ? Ok(response) : BadRequest(response.Message);
+    }
+
+    [HttpGet("fetch/{id:int}")]
+    public async Task<ActionResult> FetchPost(int id)
+    {
+        var response = await _postService.GetPost(id);
         return response.Success ? Ok(response) : BadRequest(response.Message);
     }
 }
