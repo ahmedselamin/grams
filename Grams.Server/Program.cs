@@ -2,7 +2,6 @@ global using Grams.Server.Data;
 global using Grams.Server.DTOs;
 global using Grams.Server.Models;
 global using Grams.Server.Services.AuthService;
-global using Grams.Server.Services.ImageService;
 global using Grams.Server.Services.PostService;
 global using Microsoft.EntityFrameworkCore;
 global using System.ComponentModel.DataAnnotations;
@@ -68,7 +67,6 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 //add services to DI scope
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IPostService, PostService>();
 
 var app = builder.Build();
