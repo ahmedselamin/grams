@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Grams.Server.Controllers;
 
@@ -26,4 +28,14 @@ public class PostsController : ControllerBase
         var response = await _postService.GetPost(id);
         return response.Success ? Ok(response) : BadRequest(response.Message);
     }
+
+    [HttpPost("create"), Authorize]
+    public async Task<ActionResult> CreatePost([FromForm] PostCreate request)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var response = await _postService.AddPost(userId, request.File, request.Caption);
+
+        return response.Success ? Ok(response) : BadRequest(response.Message);
+    }
+
 }
