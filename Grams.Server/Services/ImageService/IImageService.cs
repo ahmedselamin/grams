@@ -1,9 +1,0 @@
-﻿namespace Grams.Server.Services.ImageService;
-
-public interface IImageService
-{
-    Task<ServiceResponse<List<Image>>> GetImages();
-    Task<ServiceResponse<Image>> GetImage(int imageId);
-    Task<ServiceResponse<Image>> UploadImage(int userId, IFormFile file);
-    Task<ServiceResponse<bool>> DeleteImage(int userId, int imageId);
-}
