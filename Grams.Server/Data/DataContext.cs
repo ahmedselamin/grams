@@ -22,9 +22,9 @@ public class DataContext : DbContext
             .HasForeignKey(l => l.UserId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<Post>()
-            .HasMany(p => p.Likes)
-            .WithOne()
+        modelBuilder.Entity<Like>()
+            .HasOne<Post>()
+            .WithMany()
             .HasForeignKey(l => l.PostId)
             .OnDelete(DeleteBehavior.Cascade);
     }
