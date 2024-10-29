@@ -79,11 +79,11 @@ public class LikeService : ILikeService
                 return response;
             }
 
-            var AlreadyLiked = await _context.Likes.AnyAsync(l => l.PostId == postId && l.UserId == userId);
-            if (AlreadyLiked)
+            var Liked = await _context.Likes.AnyAsync(l => l.PostId == postId && l.UserId == userId);
+            if (Liked)
             {
                 response.Success = false;
-                response.Message = "Already liked";
+                response.Message = "Post Already liked";
 
                 return response;
             }
@@ -98,6 +98,7 @@ public class LikeService : ILikeService
             await _context.SaveChangesAsync();
 
             response.Data = true;
+            response.Message = "Post Liked";
 
             return response;
         }
@@ -124,6 +125,20 @@ public class LikeService : ILikeService
                 return response;
             }
 
+            var Liked = await _context.Likes.FirstOrDefaultAsync(l => l.PostId == postId && l.UserId == userId);
+            if (Liked == null)
+            {
+                response.Success = false;
+                response.Message = "Post not liked";
+
+                return response;
+            }
+
+            _context.Likes.Remove(Liked);
+            await _context.SaveChangesAsync();
+
+            response.Data = true;
+            response.Message = "Post unliked";
 
             return response;
         }
