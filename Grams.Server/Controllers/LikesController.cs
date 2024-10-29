@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Grams.Server.Controllers;
 
@@ -17,6 +19,15 @@ public class LikesController : ControllerBase
     public async Task<ActionResult> GetLikesCount(int id)
     {
         var response = await _likeService.GetLikesCount(id);
+
+        return response.Success ? Ok(response) : BadRequest(response.Message);
+    }
+
+    [HttpPost("like-post/{id:int}"), Authorize]
+    public async Task<ActionResult> LikePost(int id)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var response = await _likeService.LikePost(userId, id);
 
         return response.Success ? Ok(response) : BadRequest(response.Message);
     }
