@@ -161,6 +161,7 @@ public class PostService : IPostService
             }
 
             _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
 
             response.Data = true;
             response.Message = "Post deleted.";
