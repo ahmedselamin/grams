@@ -95,6 +95,9 @@ public class LikeService : ILikeService
             };
 
             _context.Likes.Add(newLike);
+
+            post.Likes += 1;
+
             await _context.SaveChangesAsync();
 
             response.Data = true;
