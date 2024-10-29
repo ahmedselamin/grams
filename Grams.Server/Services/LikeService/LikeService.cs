@@ -75,20 +75,18 @@ public class LikeService : ILikeService
             {
                 response.Success = false;
                 response.Message = "Not Found";
-
                 return response;
             }
 
-            var Liked = await _context.Likes.AnyAsync(l => l.PostId == postId && l.UserId == userId);
-            if (Liked)
+            var liked = await _context.Likes.AnyAsync(l => l.PostId == postId && l.UserId == userId);
+            if (liked)
             {
                 response.Success = false;
                 response.Message = "Post Already liked";
-
                 return response;
             }
 
-            Like newLike = new Like
+            var newLike = new Like
             {
                 UserId = userId,
                 PostId = postId
@@ -96,23 +94,22 @@ public class LikeService : ILikeService
 
             _context.Likes.Add(newLike);
 
-            post.Likes += 1;
+            post.Likes++;
 
             await _context.SaveChangesAsync();
 
             response.Data = true;
             response.Message = "Post Liked";
-
             return response;
         }
         catch (Exception ex)
         {
             response.Success = false;
             response.Message = ex.Message;
-
             return response;
         }
     }
+
     public async Task<ServiceResponse<bool>> DislikePost(int userId, int postId)
     {
         var response = new ServiceResponse<bool>();
@@ -124,37 +121,34 @@ public class LikeService : ILikeService
             {
                 response.Success = false;
                 response.Message = "Not Found";
-
                 return response;
             }
 
-            var Liked = await _context.Likes.FirstOrDefaultAsync(l => l.PostId == postId && l.UserId == userId);
-            if (Liked == null)
+            var liked = await _context.Likes.FirstOrDefaultAsync(l => l.PostId == postId && l.UserId == userId);
+            if (liked == null)
             {
                 response.Success = false;
                 response.Message = "Post not liked";
-
                 return response;
             }
 
-            _context.Likes.Remove(Liked);
+            _context.Likes.Remove(liked);
 
-            post.Likes -= 1;
+            post.Likes--;
 
             await _context.SaveChangesAsync();
 
             response.Data = true;
             response.Message = "Post unliked";
-
             return response;
         }
         catch (Exception ex)
         {
             response.Success = false;
             response.Message = ex.Message;
-
             return response;
         }
     }
+
 
 }
