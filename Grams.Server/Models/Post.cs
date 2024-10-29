@@ -10,6 +10,6 @@ public class Post
     public string FileName { get; set; } = string.Empty;
     public string ContentType { get; set; } = string.Empty;
     public string? Caption { get; set; }
+    public int Likes { get; set; } = 0;
     public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public List<Like> Likes { get; set; } = new List<Like>();
 }
