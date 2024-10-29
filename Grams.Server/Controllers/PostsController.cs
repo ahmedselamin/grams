@@ -46,4 +46,13 @@ public class PostsController : ControllerBase
 
         return response.Success ? Ok(response) : BadRequest(response.Message);
     }
+
+    [HttpDelete("delete/{id:int}"), Authorize]
+    public async Task<ActionResult> DeletePost(int id)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var response = await _postService.DeletePost(userId, id);
+
+        return response.Success ? Ok(response) : BadRequest(response.Message);
+    }
 }
