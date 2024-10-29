@@ -40,4 +40,12 @@ public class LikesController : ControllerBase
 
         return response.Success ? Ok(response) : BadRequest(response.Message);
     }
+    [HttpPost("is-liked/{id:int}"), Authorize]
+    public async Task<ActionResult> IsLiked(int id)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var response = await _likeService.IsLiked(userId, id);
+
+        return response.Success ? Ok(response) : BadRequest(response.Message);
+    }
 }
