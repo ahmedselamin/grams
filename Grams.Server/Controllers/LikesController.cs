@@ -31,4 +31,13 @@ public class LikesController : ControllerBase
 
         return response.Success ? Ok(response) : BadRequest(response.Message);
     }
+
+    [HttpPost("dislike-post/{id:int}"), Authorize]
+    public async Task<ActionResult> DislikePost(int id)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var response = await _likeService.DislikePost(userId, id);
+
+        return response.Success ? Ok(response) : BadRequest(response.Message);
+    }
 }
