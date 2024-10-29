@@ -24,7 +24,7 @@ public class LikeService : ILikeService
                 return response;
             }
 
-            var likesCount = await _context.Likes.CountAsync(l => l.Id == postId);   //count likes
+            var likesCount = await _context.Likes.CountAsync(l => l.PostId == postId);   //count likes
 
             response.Data = likesCount;
             return response;
