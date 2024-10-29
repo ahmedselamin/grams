@@ -10,4 +10,5 @@ public class User
     public byte[] PasswordHash { get; set; } = new byte[32];
     public byte[] PasswordSalt { get; set; } = new byte[32];
     public List<Post> Posts { get; set; } = new List<Post>();
+    public List<Like> Likes { get; set; } = new List<Like>();
 }
