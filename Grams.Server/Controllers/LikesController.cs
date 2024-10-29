@@ -8,6 +8,7 @@ namespace Grams.Server.Controllers;
 [ApiController]
 public class LikesController : ControllerBase
 {
+    public LikesController()
     private readonly ILikeService _likeService;
 
     public LikesController(ILikeService likeService)
