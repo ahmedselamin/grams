@@ -37,19 +37,84 @@ public class LikeService : ILikeService
             return response;
         }
     }
+    public async Task<ServiceResponse<bool>> IsLiked(int userId, int postId)
+    {
+        var response = new ServiceResponse<bool>();
 
-    public Task<ServiceResponse<bool>> IsLiked(int userId, int postId)
-    {
-        throw new NotImplementedException();
-    }
+        try
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "Not Found";
 
-    public Task<ServiceResponse<bool>> LikePost(int userId, int postId)
-    {
-        throw new NotImplementedException();
+                return response;
+            }
+
+            response.Data = await _context.Likes.AnyAsync(l => l.PostId == postId && l.UserId == userId);
+
+            return response;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+
+            return response;
+        }
     }
-    public Task<ServiceResponse<bool>> DislikePost(int userId, int postId)
+    public async Task<ServiceResponse<bool>> LikePost(int userId, int postId)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<bool>();
+
+        try
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "Not Found";
+
+                return response;
+            }
+
+
+            return response;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+
+            return response;
+        }
+    }
+    public async Task<ServiceResponse<bool>> DislikePost(int userId, int postId)
+    {
+        var response = new ServiceResponse<bool>();
+
+        try
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "Not Found";
+
+                return response;
+            }
+
+
+            return response;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+
+            return response;
+        }
     }
 
 }
