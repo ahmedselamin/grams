@@ -138,6 +138,9 @@ public class LikeService : ILikeService
             }
 
             _context.Likes.Remove(Liked);
+
+            post.Likes -= 1;
+
             await _context.SaveChangesAsync();
 
             response.Data = true;
