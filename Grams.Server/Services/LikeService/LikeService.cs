@@ -79,6 +79,25 @@ public class LikeService : ILikeService
                 return response;
             }
 
+            var AlreadyLiked = await _context.Likes.AnyAsync(l => l.PostId == postId && l.UserId == userId);
+            if (AlreadyLiked)
+            {
+                response.Success = false;
+                response.Message = "Already liked";
+
+                return response;
+            }
+
+            Like newLike = new Like
+            {
+                UserId = userId,
+                PostId = postId
+            };
+
+            _context.Likes.Add(newLike);
+            await _context.SaveChangesAsync();
+
+            response.Data = true;
 
             return response;
         }
