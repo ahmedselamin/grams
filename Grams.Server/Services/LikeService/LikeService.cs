@@ -134,7 +134,10 @@ public class LikeService : ILikeService
 
             _context.Likes.Remove(liked);
 
-            post.Likes--;
+            if (post.Likes > 0)
+            {
+                post.Likes--;
+            }
 
             await _context.SaveChangesAsync();
 
