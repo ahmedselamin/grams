@@ -109,10 +109,36 @@ public class PostService : IPostService
             return response;
         }
     }
-
-    public Task<ServiceResponse<Post>> UpdatePost(int userId, int postId, Post updatedPost)
+    public async Task<ServiceResponse<Post>> UpdatePost(int userId, int postId, Post updatedPost)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<Post>();
+
+        try
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "Not found";
+
+                return response;
+            }
+
+            post.Caption = updatedPost.Caption;
+
+            await _context.SaveChangesAsync();
+
+            response.Data = post;
+            response.Message = "Caption updated";
+            return response;
+
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+            return response;
+        }
     }
 
     public Task<ServiceResponse<bool>> DeletePost(int userId, int postId)
