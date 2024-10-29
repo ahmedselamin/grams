@@ -27,6 +27,7 @@ public class PostService : IPostService
         {
             response.Success = false;
             response.Message = ex.Message;
+
             return response;
         }
     }
@@ -41,6 +42,7 @@ public class PostService : IPostService
             {
                 response.Success = false;
                 response.Message = "Not found";
+
                 return response;
             }
 
@@ -51,6 +53,7 @@ public class PostService : IPostService
         {
             response.Success = false;
             response.Message = ex.Message;
+
             return response;
         }
     }
@@ -106,6 +109,7 @@ public class PostService : IPostService
         {
             response.Success = false;
             response.Message = ex.Message;
+
             return response;
         }
     }
@@ -137,13 +141,40 @@ public class PostService : IPostService
         {
             response.Success = false;
             response.Message = ex.Message;
+
             return response;
         }
     }
-
-    public Task<ServiceResponse<bool>> DeletePost(int userId, int postId)
+    public async Task<ServiceResponse<bool>> DeletePost(int userId, int postId)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<bool>();
+
+        try
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "Not found";
+
+                return response;
+            }
+
+            _context.Posts.Remove(post);
+
+            response.Data = true;
+            response.Message = "Post deleted.";
+
+            return response;
+
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+
+            return response;
+        }
     }
 
 }
