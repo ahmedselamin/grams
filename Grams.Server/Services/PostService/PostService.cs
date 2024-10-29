@@ -109,7 +109,7 @@ public class PostService : IPostService
             return response;
         }
     }
-    public async Task<ServiceResponse<Post>> UpdatePost(int userId, int postId, Post updatedPost)
+    public async Task<ServiceResponse<Post>> UpdatePost(int userId, int postId, string updatedCaption)
     {
         var response = new ServiceResponse<Post>();
 
@@ -124,7 +124,7 @@ public class PostService : IPostService
                 return response;
             }
 
-            post.Caption = updatedPost.Caption;
+            post.Caption = updatedCaption;
 
             await _context.SaveChangesAsync();
 
