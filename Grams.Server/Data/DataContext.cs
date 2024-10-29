@@ -20,7 +20,7 @@ public class DataContext : DbContext
             .HasMany(u => u.Likes)
             .WithOne()
             .HasForeignKey(l => l.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Post>()
             .HasMany(p => p.Likes)
