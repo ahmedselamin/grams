@@ -38,7 +38,7 @@ public class PostsController : ControllerBase
         return response.Success ? Ok(response) : BadRequest(response.Message);
     }
 
-    [HttpPatch("edit/{id:int}"), Authorize]
+    [HttpPatch("edit-caption/{id:int}"), Authorize]
     public async Task<ActionResult> EditCaption(int id, [FromBody] string caption)
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -47,7 +47,7 @@ public class PostsController : ControllerBase
         return response.Success ? Ok(response) : BadRequest(response.Message);
     }
 
-    [HttpDelete("delete/{id:int}"), Authorize]
+    [HttpDelete("delete-post/{id:int}"), Authorize]
     public async Task<ActionResult> DeletePost(int id)
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
