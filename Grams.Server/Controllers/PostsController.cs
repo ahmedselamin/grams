@@ -38,7 +38,7 @@ public class PostsController : ControllerBase
         return response.Success ? Ok(response) : BadRequest(response.Message);
     }
 
-    [HttpPut("edit/{id:int}"), Authorize]
+    [HttpPatch("edit/{id:int}"), Authorize]
     public async Task<ActionResult> EditCaption(int id, [FromBody] string caption)
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
