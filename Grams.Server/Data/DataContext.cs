@@ -13,16 +13,19 @@ public class DataContext : DbContext
         modelBuilder.Entity<User>()
             .HasMany(u => u.Posts)
             .WithOne()
-            .HasForeignKey(p => p.UserId);
+            .HasForeignKey(p => p.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<User>()
             .HasMany(u => u.Likes)
             .WithOne()
-            .HasForeignKey(l => l.UserId);
+            .HasForeignKey(l => l.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Post>()
             .HasMany(p => p.Likes)
             .WithOne()
-            .HasForeignKey(l => l.PostId);
+            .HasForeignKey(l => l.PostId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
