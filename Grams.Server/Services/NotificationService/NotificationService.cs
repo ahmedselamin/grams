@@ -39,12 +39,27 @@ public class NotificationService : INotificationService
         }
     }
 
-    public async Task<ServiceResponse<bool>> SendNotification(int userId, Notification notification)
+    public async Task<ServiceResponse<bool>> SendNotification(int userId, string message)
     {
         var response = new ServiceResponse<bool>();
 
         try
         {
+            var notification = new Notification
+            {
+                UserId = userId,
+                Message = message,
+                CreatedAt = DateTime.Now,
+            };
+
+            await _context.Notifications.AddAsync(notification);
+
+            await _context.SaveChangesAsync();
+
+            response.Data = true;
+            response.Message = "Notification sent";
+
+            return response;
 
         }
         catch (Exception ex)
