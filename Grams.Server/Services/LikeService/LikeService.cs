@@ -4,10 +4,12 @@ namespace Grams.Server.Services.LikeService;
 public class LikeService : ILikeService
 {
     private readonly DataContext _context;
+    private readonly INotificationService _notificationService;
 
-    public LikeService(DataContext context)
+    public LikeService(DataContext context, INotificationService notificationService)
     {
         _context = context;
+        _notificationService = notificationService;
     }
     public async Task<ServiceResponse<int>> GetLikesCount(int postId)
     {
@@ -86,13 +88,24 @@ public class LikeService : ILikeService
                 return response;
             }
 
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "User not found";
+                return response;
+            }
+
             var newLike = new Like
             {
                 UserId = userId,
                 PostId = postId
             };
 
-            _context.Likes.Add(newLike);
+            await _context.Likes.AddAsync(newLike);
+
+            var message = $"{user.Username} has liked your photo.";
+            await _notificationService.SendNotification(post.UserId, message);
 
             post.Likes++;
 
@@ -109,7 +122,6 @@ public class LikeService : ILikeService
             return response;
         }
     }
-
     public async Task<ServiceResponse<bool>> DislikePost(int userId, int postId)
     {
         var response = new ServiceResponse<bool>();
@@ -124,6 +136,14 @@ public class LikeService : ILikeService
                 return response;
             }
 
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "User not found";
+                return response;
+            }
+
             var liked = await _context.Likes.FirstOrDefaultAsync(l => l.PostId == postId && l.UserId == userId);
             if (liked == null)
             {
@@ -131,6 +151,10 @@ public class LikeService : ILikeService
                 response.Message = "Post not liked";
                 return response;
             }
+
+
+            var message = $"{user.Username} has unliked your photo.";
+            await _notificationService.SendNotification(post.UserId, message);
 
             _context.Likes.Remove(liked);
 
