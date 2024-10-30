@@ -18,6 +18,12 @@ public class DataContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<User>()
+            .HasMany(u => u.Notifications)
+            .WithOne()
+            .HasForeignKey(n => n.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<User>()
             .HasMany(u => u.Likes)
             .WithOne()
             .HasForeignKey(l => l.UserId)
