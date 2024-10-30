@@ -152,10 +152,6 @@ public class LikeService : ILikeService
                 return response;
             }
 
-
-            var message = $"{user.Username} has unliked your photo.";
-            await _notificationService.SendNotification(post.UserId, message);
-
             _context.Likes.Remove(liked);
 
             if (post.Likes > 0)
