@@ -6,11 +6,11 @@ namespace Grams.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class NotificationController : ControllerBase
+public class NotificationsController : ControllerBase
 {
     private readonly INotificationService _notificationService;
 
-    public NotificationController(INotificationService notificationService)
+    public NotificationsController(INotificationService notificationService)
     {
         _notificationService = notificationService;
     }
