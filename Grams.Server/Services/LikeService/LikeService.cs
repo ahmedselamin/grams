@@ -104,7 +104,7 @@ public class LikeService : ILikeService
 
             await _context.Likes.AddAsync(newLike);
 
-            var message = $"{user.Username} has liked your photo.";
+            var message = $"{user.Username} liked your photo.";
             await _notificationService.SendNotification(post.UserId, message);
 
             post.Likes++;
@@ -152,8 +152,7 @@ public class LikeService : ILikeService
                 return response;
             }
 
-
-            var message = $"{user.Username} has unliked your photo.";
+            var message = $"{user.Username} disliked your photo.";
             await _notificationService.SendNotification(post.UserId, message);
 
             _context.Likes.Remove(liked);
