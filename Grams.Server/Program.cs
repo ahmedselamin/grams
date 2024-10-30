@@ -3,6 +3,7 @@ global using Grams.Server.DTOs;
 global using Grams.Server.Models;
 global using Grams.Server.Services.AuthService;
 global using Grams.Server.Services.LikeService;
+global using Grams.Server.Services.NotificationService;
 global using Grams.Server.Services.PostService;
 global using Microsoft.EntityFrameworkCore;
 global using System.ComponentModel.DataAnnotations;
@@ -70,6 +71,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<ILikeService, LikeService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 var app = builder.Build();
 
