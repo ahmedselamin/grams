@@ -19,15 +19,10 @@ public class NotificationService : INotificationService
                 .Where(n => n.UserId == userId)
                 .OrderByDescending(n => n.Id)
                 .ToListAsync();
-            if (!notifications.Any())
-            {
-                response.Success = false;
-                response.Message = "No notifications";
-
-                return response;
-            }
 
             response.Data = notifications;
+            response.Message = notifications.Any() ? "" : "No notifications";
+
             return response;
         }
         catch (Exception ex)
