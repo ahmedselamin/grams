@@ -32,7 +32,8 @@ public class DataContext : DbContext
         modelBuilder.Entity<User>()  //user and comment
             .HasMany(u => u.Comments)
             .WithOne()
-            .HasForeignKey(c => c.UserId);
+            .HasForeignKey(c => c.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Post>()  //post and comment
            .HasMany(p => p.Comments)
