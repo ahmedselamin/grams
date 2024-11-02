@@ -40,5 +40,15 @@ public class CommentsController : ControllerBase
         return response.Success ? Ok(response) : BadRequest(response);
     }
 
+    [HttpPatch("edit-comment/{id:int}"), Authorize]
+    public async Task<ActionResult> EditComment(int id, [FromBody] string updatedContent)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var response = await _commentService.UpdateComment(userId, id, updatedContent);
+
+        return response.Success ? Ok(response) : BadRequest(response);
+    }
+
+
 
 }
