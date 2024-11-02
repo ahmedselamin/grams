@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Grams.Server.Controllers;
 
@@ -28,5 +30,15 @@ public class CommentsController : ControllerBase
 
         return response.Success ? Ok(response) : BadRequest(response);
     }
+
+    [HttpPost("add-comment"), Authorize]
+    public async Task<ActionResult> CreateComment([FromBody] CommentCreate request)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var response = await _commentService.CreateComment(userId, request.PostId, request.Content);
+
+        return response.Success ? Ok(response) : BadRequest(response);
+    }
+
 
 }
