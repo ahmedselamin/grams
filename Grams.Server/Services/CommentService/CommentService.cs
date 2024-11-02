@@ -3,10 +3,12 @@
 public class CommentService : ICommentService
 {
     private readonly DataContext _context;
+    private readonly INotificationService _notificationService;
 
-    public CommentService(DataContext context)
+    public CommentService(DataContext context, INotificationService notificationService)
     {
         _context = context;
+        _notificationService = notificationService;
     }
     public async Task<ServiceResponse<List<Comment>>> GetComments(int postId)
     {
@@ -79,6 +81,27 @@ public class CommentService : ICommentService
                 Content = content,
                 CreatedAt = DateTime.Now
             };
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "Not found";
+                return response;
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "Not found";
+                return response;
+            }
+
+            if (user.Id != post.UserId)
+            {
+                var message = $"{user.Username} has commented on your gram";
+                await _notificationService.SendNotification(post.UserId, message);
+            }
 
             await _context.Comments.AddAsync(comment);
             await _context.SaveChangesAsync();
@@ -116,6 +139,20 @@ public class CommentService : ICommentService
                 response.Message = "Not found";
 
                 return response;
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "Not found";
+                return response;
+            }
+
+            if (user.Id != comment.UserId)
+            {
+                var message = $"{user.Username} edited their comment";
+                await _notificationService.SendNotification(comment.UserId, message);
             }
 
             comment.Content = updatedContent;
