@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grams.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241102161001_CommentsTable")]
-    partial class CommentsTable
+    [Migration("20241102174735_AddCommentsTable")]
+    partial class AddCommentsTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -181,7 +181,7 @@ namespace Grams.Server.Migrations
                     b.HasOne("Grams.Server.Models.User", null)
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

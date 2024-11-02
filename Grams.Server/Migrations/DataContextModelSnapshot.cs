@@ -178,7 +178,7 @@ namespace Grams.Server.Migrations
                     b.HasOne("Grams.Server.Models.User", null)
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
