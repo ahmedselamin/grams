@@ -8,9 +8,9 @@ namespace Grams.Server.Controllers;
 [ApiController]
 public class CommentsController : ControllerBase
 {
-    private readonly CommentService _commentService;
+    private readonly ICommentService _commentService;
 
-    public CommentsController(CommentService commentService)
+    public CommentsController(ICommentService commentService)
     {
         _commentService = commentService;
     }
