@@ -1,5 +1,4 @@
-﻿
-namespace Grams.Server.Services.CommentService;
+﻿namespace Grams.Server.Services.CommentService;
 
 public class CommentService : ICommentService
 {
@@ -96,12 +95,36 @@ public class CommentService : ICommentService
         }
     }
 
-    public async Task<ServiceResponse<Comment>> UpdateComment(int userId, int postId, string updatedContent)
+    public async Task<ServiceResponse<Comment>> UpdateComment(int userId, int commentId, string updatedContent)
     {
         var response = new ServiceResponse<Comment>();
 
         try
         {
+            var comment = await _context.Comments.FirstOrDefaultAsync(p => p.Id == commentId && p.UserId == userId);
+            if (comment == null)
+            {
+                response.Success = false;
+                response.Message = "Not found";
+
+                return response;
+            }
+
+            if (string.IsNullOrWhiteSpace(updatedContent))
+            {
+                response.Success = false;
+                response.Message = "Content cannot be empty.";
+                return response;
+            }
+
+            comment.Content = updatedContent;
+
+            await _context.SaveChangesAsync();
+
+            response.Data = comment;
+            response.Message = "Comment updated";
+
+            return response;
 
         }
         catch (Exception ex)
@@ -119,7 +142,14 @@ public class CommentService : ICommentService
 
         try
         {
+            var comment = await _context.Comments.FirstOrDefaultAsync(p => p.Id == postId && p.UserId == userId);
+            if (comment == null)
+            {
+                response.Success = false;
+                response.Message = "Not found";
 
+                return response;
+            }
         }
         catch (Exception ex)
         {
