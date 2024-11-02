@@ -38,7 +38,17 @@ public class CommentService : ICommentService
 
         try
         {
+            var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
+            if (comment == null)
+            {
+                response.Success = false;
+                response.Message = "Not found";
 
+                return response;
+            }
+
+            response.Data = comment;
+            return response;
         }
         catch (Exception ex)
         {
