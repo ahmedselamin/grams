@@ -10,30 +10,36 @@ public class DataContext : DbContext
     public DbSet<Notification> Notifications { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>()
+        modelBuilder.Entity<User>()     //user and post 
             .HasMany(u => u.Posts)
             .WithOne()
             .HasForeignKey(p => p.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<User>()
+        modelBuilder.Entity<User>()     //user and notification
             .HasMany(u => u.Notifications)
             .WithOne()
             .HasForeignKey(n => n.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<User>()
+        modelBuilder.Entity<User>()     //user and lik
             .HasMany(u => u.Likes)
             .WithOne()
             .HasForeignKey(l => l.UserId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<User>()
+        modelBuilder.Entity<User>()  //user and comment
             .HasMany(u => u.Comments)
             .WithOne()
             .HasForeignKey(c => c.UserId);
 
-        modelBuilder.Entity<Like>()
+        modelBuilder.Entity<Post>()  //post and comment
+           .HasMany(p => p.Comments)
+           .WithOne()
+           .HasForeignKey(c => c.PostId)
+           .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Like>()   // like and post
             .HasOne<Post>()
             .WithMany()
             .HasForeignKey(l => l.PostId)
