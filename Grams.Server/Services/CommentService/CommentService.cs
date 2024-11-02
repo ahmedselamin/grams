@@ -102,19 +102,19 @@ public class CommentService : ICommentService
 
         try
         {
+            if (string.IsNullOrWhiteSpace(updatedContent))
+            {
+                response.Success = false;
+                response.Message = "Content cannot be empty.";
+                return response;
+            }
+
             var comment = await _context.Comments.FirstOrDefaultAsync(p => p.Id == commentId && p.UserId == userId);
             if (comment == null)
             {
                 response.Success = false;
                 response.Message = "Not found";
 
-                return response;
-            }
-
-            if (string.IsNullOrWhiteSpace(updatedContent))
-            {
-                response.Success = false;
-                response.Message = "Content cannot be empty.";
                 return response;
             }
 
