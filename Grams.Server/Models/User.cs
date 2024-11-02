@@ -12,4 +12,5 @@ public class User
     public List<Post> Posts { get; set; } = new();
     public List<Like> Likes { get; set; } = new();
     public List<Notification> Notifications { get; set; } = new();
+    public List<Comment> Comments { get; set; } = new();
 }
