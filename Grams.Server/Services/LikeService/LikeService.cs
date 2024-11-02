@@ -105,6 +105,10 @@ public class LikeService : ILikeService
             await _context.Likes.AddAsync(newLike);
 
             var message = $"{user.Username} liked your photo.";
+            var message = $"{user.Username} Liked your photo.";
+=========
+            var message = $"{user.Username} has liked your photo.";
+>>>>>>>>> Temporary merge branch 2
             await _notificationService.SendNotification(post.UserId, message);
 
             post.Likes++;
@@ -152,7 +156,12 @@ public class LikeService : ILikeService
                 return response;
             }
 
+
+<<<<<<<<< Temporary merge branch 1
             var message = $"{user.Username} disliked your photo.";
+=========
+            var message = $"{user.Username} has unliked your photo.";
+>>>>>>>>> Temporary merge branch 2
             await _notificationService.SendNotification(post.UserId, message);
 
             _context.Likes.Remove(liked);
