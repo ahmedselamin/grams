@@ -28,10 +28,16 @@ public class DataContext : DbContext
             .HasForeignKey(l => l.UserId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Comments)
+            .WithOne()
+            .HasForeignKey(c => c.UserId);
+
         modelBuilder.Entity<Like>()
             .HasOne<Post>()
             .WithMany()
             .HasForeignKey(l => l.PostId)
             .OnDelete(DeleteBehavior.Cascade);
+
     }
 }
