@@ -142,7 +142,7 @@ public class CommentService : ICommentService
 
         try
         {
-            var comment = await _context.Comments.FirstOrDefaultAsync(p => p.Id == postId && p.UserId == userId);
+            var comment = await _context.Comments.FirstOrDefaultAsync(p => p.Id == commentId && p.UserId == userId);
             if (comment == null)
             {
                 response.Success = false;
@@ -150,6 +150,14 @@ public class CommentService : ICommentService
 
                 return response;
             }
+
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
+
+            response.Data = true;
+            response.Message = "Comment deleted";
+
+            return response;
         }
         catch (Exception ex)
         {
