@@ -11,5 +11,6 @@ public class Post
     public string ContentType { get; set; } = string.Empty;
     public string? Caption { get; set; }
     public int Likes { get; set; } = 0;
+    public List<Comment> Comments { get; set; } = new();
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 }
