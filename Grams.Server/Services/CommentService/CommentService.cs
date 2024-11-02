@@ -65,7 +65,27 @@ public class CommentService : ICommentService
 
         try
         {
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                response.Success = false;
+                response.Message = "Comment content cannot be empty.";
+                return response;
+            }
 
+            var comment = new Comment
+            {
+                UserId = userId,
+                PostId = postId,
+                Content = content,
+                CreatedAt = DateTime.Now
+            };
+
+            await _context.Comments.AddAsync(comment);
+            await _context.SaveChangesAsync();
+
+            response.Data = comment;
+
+            return response;
         }
         catch (Exception ex)
         {
