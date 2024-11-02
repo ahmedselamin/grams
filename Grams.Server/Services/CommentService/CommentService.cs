@@ -15,6 +15,7 @@ public class CommentService : ICommentService
         try
         {
             var comments = await _context.Comments
+                .Where(c => c.PostId == postId)
                 .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();
 
