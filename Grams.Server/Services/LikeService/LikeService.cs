@@ -106,7 +106,10 @@ public class LikeService : ILikeService
 
             var message = $"{user.Username} liked your photo.";
 
-            await _notificationService.SendNotification(post.UserId, message);
+            if (user.Id != post.UserId)
+            {
+                await _notificationService.SendNotification(post.UserId, message);
+            }
 
             post.Likes++;
 
@@ -154,7 +157,11 @@ public class LikeService : ILikeService
             }
 
             var message = $"{user.Username} disliked your photo.";
-            await _notificationService.SendNotification(post.UserId, message);
+
+            if (user.Id != post.UserId)
+            {
+                await _notificationService.SendNotification(post.UserId, message);
+            }
 
             _context.Likes.Remove(liked);
 
