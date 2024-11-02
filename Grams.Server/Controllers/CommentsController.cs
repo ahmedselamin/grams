@@ -49,6 +49,13 @@ public class CommentsController : ControllerBase
         return response.Success ? Ok(response) : BadRequest(response);
     }
 
+    [HttpDelete("delete-comment/{id:int}"), Authorize]
+    public async Task<ActionResult> DeleteComment(int id)
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var response = await _commentService.DeleteComment(userId, id);
 
+        return response.Success ? Ok(response) : BadRequest(response);
+    }
 
 }
