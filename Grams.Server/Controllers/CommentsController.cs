@@ -23,6 +23,14 @@ public class CommentsController : ControllerBase
         return response.Success ? Ok(response) : BadRequest(response);
     }
 
+    [HttpGet("count/{id:int}")]
+    public async Task<ActionResult> FetchCommentsCount(int id)
+    {
+        var response = await _commentService.GetCommentsCount(id);
+
+        return response.Success ? Ok(response) : BadRequest(response);
+    }
+
     [HttpGet("fetch-comment/{id:int}")]
     public async Task<ActionResult> FetchComment(int id)
     {
