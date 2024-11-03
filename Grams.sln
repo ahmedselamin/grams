@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grams.Server", "Grams.Server\Grams.Server.csproj", "{B1908FA8-BF79-442B-962F-6C9547C3F29E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grams.Server", "Grams.Server\Grams.Server.csproj", "{B1908FA8-BF79-442B-962F-6C9547C3F29E}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "grams.client", "Grams.Client\grams.client.esproj", "{5950E12B-3FDB-4B7E-BD8D-55AD46C68D6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,12 @@ Global
 		{B1908FA8-BF79-442B-962F-6C9547C3F29E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1908FA8-BF79-442B-962F-6C9547C3F29E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1908FA8-BF79-442B-962F-6C9547C3F29E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5950E12B-3FDB-4B7E-BD8D-55AD46C68D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5950E12B-3FDB-4B7E-BD8D-55AD46C68D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5950E12B-3FDB-4B7E-BD8D-55AD46C68D6E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5950E12B-3FDB-4B7E-BD8D-55AD46C68D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5950E12B-3FDB-4B7E-BD8D-55AD46C68D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5950E12B-3FDB-4B7E-BD8D-55AD46C68D6E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
