@@ -10,6 +10,36 @@ public class CommentService : ICommentService
         _context = context;
         _notificationService = notificationService;
     }
+
+    public async Task<ServiceResponse<int>> GetCommentsCount(int postId)
+    {
+        var response = new ServiceResponse<int>();
+
+        try
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
+            if (post == null)
+            {
+                response.Success = false;
+                response.Message = "Not found";
+
+                return response;
+            }
+
+            var count = await _context.Comments.CountAsync(c => c.PostId == postId);
+
+            response.Data = count;
+            return response;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+
+            return response;
+        }
+    }
+
     public async Task<ServiceResponse<List<Comment>>> GetComments(int postId)
     {
         var response = new ServiceResponse<List<Comment>>();
