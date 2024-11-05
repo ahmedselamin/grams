@@ -30,14 +30,24 @@ const Home = () => {
             ...formData,
 
         });
-    }
+    };
 
     const clearForm = (e) => {
         setFormData({
             caption: "",
             file: null
         });
-    }
+    };
+
+    const openDialog = () => {
+        setOpen(true);
+    };
+
+    const closeDialog = () => {
+        setOpen(false);
+
+        clearForm();
+    };
 
 };
 
