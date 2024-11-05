@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const axiosInstance = axios.Create({
+const axiosInstance = axios.create({
     const: "https://localhost:7267/api",
 });
 
