@@ -29,7 +29,14 @@ const Home = () => {
         setFormData({
             ...formData,
 
-        })
+        });
+    }
+
+    const clearForm = (e) => {
+        setFormData({
+            caption: "",
+            file: null
+        });
     }
 
 };
