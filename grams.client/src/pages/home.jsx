@@ -81,6 +81,107 @@ const Home = () => {
             console.error(error);
         }
     }
+
+    useEffect(() => {
+        fetchPosts();
+
+    }, []);
+
+    return (
+        <Box sx={{ padding: '20px' }}>
+            {isAuthenticated ? (
+                <Container>
+                    <Typography variant="h4" sx={{ textAlign: 'left', flexGrow: 1 }}>
+                        Welcome, {username}!
+                    </Typography>
+
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px', maxWidth: '600px', marginX: 'auto' }}>
+                        <Button
+                            variant="contained"
+                            onClick={openDialog}
+                            sx={{
+                                backgroundColor: '#005477',
+                                color: 'white',
+                                borderRadius: '20px',
+                                paddingX: '25px',
+                                paddingY: '10px',
+                                transition: 'transform 0.3s ease',
+                                '&:hover': {
+                                    transform: 'scale(1.1)',
+                                },
+                            }}>
+                            Add Post
+                        </Button>
+                    </Box>
+                </Container>
+            ) : null}
+
+            <Stack spacing={3} sx={{ maxWidth: '450px', margin: '0 auto' }}>
+                {posts.length === 0 ? (
+                    <Typography variant="h6" align="center" color="text.secondary">
+                        No posts available
+                    </Typography>
+                ) : (
+                    posts.map((post) => (
+                        <Card key={post._id} sx={{ backgroundColor: '#ffffff', borderRadius: '20px', boxShadow: 2, padding: '15px' }}>
+                            <CardContent>
+                                <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+                                    {post.caption || 'No Caption'}
+                                </Typography>
+
+                                {post.image && (
+                                    <Box sx={{ display: 'flex', justifyContent: 'center', marginY: '10px' }}>
+                                        <img
+                                            src={`http://localhost:3030/uploads/${post.image.split('\\').pop()}`}
+                                            alt={post.caption}
+                                            style={{ maxHeight: '300px', width: '300px', objectFit: 'cover', borderRadius: '8px' }}
+                                        />
+                                    </Box>
+                                )}
+
+                                <Typography variant="caption" display="block" sx={{ marginY: '5px' }}>
+                                    <strong>Author:</strong> {post.author.username || 'Unknown'}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    ))
+                )}
+            </Stack>
+
+            <Dialog maxWidth="xs" fullWidth open={open} onClose={closeDialog}>
+                <DialogTitle sx={{ textAlign: "center" }}>Share A Post</DialogTitle>
+                <DialogContent>
+                    <Box component="form" onSubmit={handleFormSubmit}>
+                        <TextField
+                            margin="dense"
+                            name="caption"
+                            label="Caption"
+                            type="text"
+                            fullWidth
+                            required
+                            value={formData.caption}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            accept="image/*"
+                            type="file"
+                            onChange={handleImageChange}
+                            style={{ marginTop: '10px' }}
+                        />
+                        <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                            <Button variant="outlined" onClick={closeDialog} sx={{ color: 'black', borderRadius: '20px' }}>
+                                Discard
+                            </Button>
+                            <Button variant="contained" type="submit" sx={{ backgroundColor: '#005477', borderRadius: '20px' }}>
+                                Confirm
+                            </Button>
+                        </DialogActions>
+                    </Box>
+                </DialogContent>
+            </Dialog>
+        </Box>
+    );
+
 };
 
 export default Home;
