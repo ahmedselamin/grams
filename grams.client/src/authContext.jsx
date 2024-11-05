@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (formData) => {
         try {
-            const response = await axiosInstance.post('/auth/register', {
+            const response = await axiosInstance.post('/Auth/register', {
                 username: formData.username,
                 password: formData.password
             });
