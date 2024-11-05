@@ -49,6 +49,14 @@ const Home = () => {
         clearForm();
     };
 
+    const fetchPosts = async (e) => {
+        try {
+            const response = await axiosInstance.get("/posts/fetch");
+            setGrams(response.data);
+        } catch (erro) {
+            console.error(error);
+        }
+    };
 };
 
 export default Home;
