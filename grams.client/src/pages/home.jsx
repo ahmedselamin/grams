@@ -21,7 +21,7 @@ const Home = () => {
     const [grams, setGrams] = useState([]);
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
-        file: null,
+        image: null,
         caption: ""
     });
 
@@ -51,12 +51,36 @@ const Home = () => {
 
     const fetchPosts = async (e) => {
         try {
-            const response = await axiosInstance.get("/posts/fetch");
+            const response = await axiosInstance.get("/Posts/fetch");
             setGrams(response.data);
         } catch (erro) {
             console.error(error);
         }
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const data = new FormData();
+        data.append('caption', formData.caption);
+
+        if (formData.image) {
+            data.append('image', formData.image)
+        }
+
+        try {
+            const response = await axiosInstance.post("/Posts/create", data, {
+                headers: {
+                    'Content-Type': 'mulitpart/form-media',
+                }
+            });
+
+            closeDialog();
+            fetchPosts();
+        } catch (error) {
+            console.error(error);
+        }
+    }
 };
 
 export default Home;
