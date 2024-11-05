@@ -49,5 +49,13 @@ export const AuthProvider = ({ children }) => {
 
             return false;
         }
+        
     }
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        setIsAuthenticated(false);
+        setUsername('');
+    };
 }
