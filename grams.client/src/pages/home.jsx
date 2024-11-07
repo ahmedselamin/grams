@@ -17,7 +17,7 @@ import axiosInstance from "../utils/axiosInstance";
 import { AuthContext } from "../authContext";
 
 const Home = () => {
-    const [isAuthenticated] = useContext(AuthContext);
+    const { isAuthenticated } = useContext(AuthContext);
     const [post, setPosts] = useState([]);
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
