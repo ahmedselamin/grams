@@ -14,11 +14,11 @@ const Navbar = () => {
         navigate('/');
     };
 
-    const handleMenuOpen = (e) => {
+    const handleMenueOpen = (e) => {
         setAnchorEl(e.currentTarget);
     };
 
-    const handleMenuClose = () => {
+    const handleMenueClose = () => {
         setAnchorEl(null);
     };
 
@@ -76,6 +76,15 @@ const Navbar = () => {
                         )
                    }
                 </Box>
+
+                {/* mobile menu icon*/}
+                <IconButton edge="end" color="inherit" aria-label="menu"
+                    onClick={handleMenuOpen}
+                    sx={{ display: { xs: 'block', md: 'none' } }} >
+
+                        <MenuIcon />
+                </IconButton>
+
             </Toolbar>
         </AppBar>
     );
