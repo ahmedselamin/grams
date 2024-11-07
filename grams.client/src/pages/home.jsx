@@ -142,12 +142,10 @@ const Home = () => {
                         />
                         <TextField
                             margin="dense"
-                            name="title"
-                            label="Name"
+                            name="caption"
+                            label="Caption"
                             type="text"
-                            fullWidth
-                            required
-                            value={formData.title}
+                            value={formData.caption}
                             onChange={handleInputChange}
                         />
                         <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
