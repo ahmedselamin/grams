@@ -32,6 +32,13 @@ const Home = () => {
         });
     }
 
+    const handleImageChange = (e) => {
+        setFormData({
+            ...formData,
+            photo: e.target.files[0],
+        });
+    };
+
     const clearForm = () => {
         setFormData({
             caption: "",
@@ -122,6 +129,38 @@ const Home = () => {
                     </Typography>
                 )}
             </Stack>
+
+            <Dialog maxWidth="xs" fullWidth open={open} close={closeDialog}>
+                <DialogTitle sx={{ textAlign: "center" }}>Gram</DialogTitle>
+                <DialogContent>
+                    <Box component="form" onSubmit={handleCreate}>                        
+                        <input
+                            accept="image/*"
+                            type="file"
+                            onChange={handleImageChange}
+                            style={{ marginTop: '10px' }}
+                        />
+                        <TextField
+                            margin="dense"
+                            name="title"
+                            label="Name"
+                            type="text"
+                            fullWidth
+                            required
+                            value={formData.title}
+                            onChange={handleInputChange}
+                        />
+                        <DialogActions sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                            <Button variant="outlined" onClick={closeDialog} sx={{ color: 'black', borderRadius: '20px' }}>
+                                Discard
+                            </Button>
+                            <Button variant="contained" type="submit" sx={{ backgroundColor: '#005477', borderRadius: '20px' }}>
+                                Confirm
+                            </Button>
+                        </DialogActions>
+                    </Box>
+                </DialogContent>
+            </Dialog>
         </Box>
     );
 
