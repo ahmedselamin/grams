@@ -81,10 +81,44 @@ const Navbar = () => {
                 <IconButton edge="end" color="inherit" aria-label="menu"
                     onClick={handleMenuOpen}
                     sx={{ display: { xs: 'block', md: 'none' } }} >
-
-                        <MenuIcon />
+                     <MenuIcon />
                 </IconButton>
 
+                {/* mobile dropdown */}
+                <Menu anchorEl={anchorEl} open={Boolean(anchorEl)}
+                    onClose={handleMenueClose}
+                    sx={{
+                        display: { xs: 'block', md: 'none' },
+                        '& .MuiPaper-root': {
+                            minWidth: '250px', 
+                            padding: '10px', 
+                        },
+                    }}>
+                    <MenuItem onClick={handleMenueClose} component={Link} to="/">
+                        Home    
+                    </MenuItem>
+                    {isAuthenticated ?
+                        (
+                            <>
+                                <MenuItem onClick={handleMenuClose} component={Link} to="/notification">
+                                    Notifications
+                                </MenuItem>
+                                <MenuItem onClick={handleLogout}>
+                                    Logout
+                                </MenuItem>
+                            </>
+                        ) : (
+                            <>
+                                <MenuItem onClick={handleMenuClose} component={Link} to="/login">
+                                    Login
+                                </MenuItem>
+                                <MenuItem onClick={handleMenuClose} component={Link} to="/register">
+                                    Register
+                                </MenuItem> 
+                            </>
+                        )    
+                    }
+                </Menu>
             </Toolbar>
         </AppBar>
     );
