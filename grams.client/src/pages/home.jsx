@@ -84,7 +84,34 @@ const Home = () => {
     }, []);
 
     return (
-        <h2>Home</h2>
+        <Box sx={{ padding: 20 }}>
+            {isAuthenticated ? (
+                <Container>
+                    <Typography>
+                        Welcome back!
+                    </Typography>
+
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px', maxWidth: '600px', marginX: 'auto' }}>
+                        <Button
+                            variant="contained"
+                            onClick={openDialog}
+                            sx={{
+                                backgroundColor: '#005477',
+                                color: 'white',
+                                borderRadius: '20px',
+                                paddingX: '25px',
+                                paddingY: '10px',
+                                transition: 'transform 0.3s ease',
+                                '&:hover': {
+                                    transform: 'scale(1.1)',
+                                },
+                            }}>
+                            Create 
+                        </Button>
+                    </Box>
+                </Container>
+            ): null}
+        </Box>
     );
 
 };
