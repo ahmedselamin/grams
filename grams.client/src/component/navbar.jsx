@@ -14,6 +14,10 @@ const Navbar = () => {
         navigate('/');
     };
 
+    const handleMenuOpen = (e) => {
+        setAnchorEl(e.currentTarget);
+    };
+
     return (
         
     );
