@@ -7,6 +7,7 @@ import Layout from "./component/layout";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Register from "./pages/register";
+import Notifications from "./pages/notifications";
 
 const router = createBrowserRouter([
     {
@@ -24,7 +25,11 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register />
-            }
+            },
+            {
+                path: "/notifications",
+                element: <Notifications />
+            }            
         ]
     }
 ])
