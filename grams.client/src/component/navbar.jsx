@@ -18,6 +18,10 @@ const Navbar = () => {
         setAnchorEl(e.currentTarget);
     };
 
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
     return (
         
     );
