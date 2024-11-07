@@ -31,7 +31,7 @@ const Navbar = () => {
                 color: 'white',
                 borderRadius: "40px",
                 margin: '0 auto',
-                maxWidth: '1500px',
+                maxWidth: '1250px',
                 padding: '10px 20px'
             }}>
                 <Toolbar>
