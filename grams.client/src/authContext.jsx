@@ -24,6 +24,27 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const login = async (formData) => {
+        try {
+            const response = await axiosInstance.post('/Auth/login', {
+                username: formData.username,
+                password: formData.password
+            });
+
+            const token = response.data.token;
+
+            localStorage.setItem('token', token);
+
+            setIsAuthenticated(true);
+            return true;
+            
+        } catch (error) {
+            console.error(error)
+            return false;
+        }
+    }
+
+
     return (
         <AuthContext.Provider>
             {children}
