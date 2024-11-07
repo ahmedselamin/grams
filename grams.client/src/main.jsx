@@ -5,6 +5,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
 import Layout from "./component/layout";
 import Home from "./pages/home";
+import Login from "./pages/login";
+import Register from "./pages/register";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +16,14 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />
+            },
+            {
+                path: "/login",
+                element: <Login />
+            },
+            {
+                path: "/register",
+                element: <Register />
             }
         ]
     }
