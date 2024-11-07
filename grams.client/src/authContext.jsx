@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
                 password: formData.password,
             });
 
-            const token = response.data?.token;
+            const token = response.data.data;
 
             if (token) {
                 localStorage.setItem('token', token);
