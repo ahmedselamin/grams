@@ -39,6 +39,13 @@ const Home = () => {
         })
     };
 
+    const openDialog = () => {
+        setOpen(true);
+    }
+    const closeDialog = () => {
+        setOpen(false);
+    }
+
     const fetchGrams = async () => {
         try {
             const response = await axiosInstance.get('/Posts/fetch');
@@ -63,8 +70,10 @@ const Home = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            closeDialog();
 
             fetchGrams();
+
         } catch (erro) {
             console.error(error);
         }
