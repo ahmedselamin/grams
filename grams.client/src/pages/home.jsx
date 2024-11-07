@@ -79,6 +79,10 @@ const Home = () => {
         }
     }
 
+    useEffect(() => {
+        fetchGrams();
+    }, []);
+
     return (
         <h2>Home</h2>
     );
