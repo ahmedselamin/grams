@@ -1,5 +1,4 @@
 import { createContext, useState } from 'react';
-import { jwtDecode } from 'jwt-decode';
 import axiosInstance from './utils/axiosInstance'; 
 
 
@@ -7,6 +6,7 @@ import axiosInstance from './utils/axiosInstance';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const register = async (formData) => {
