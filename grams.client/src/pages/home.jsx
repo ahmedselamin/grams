@@ -48,6 +48,28 @@ const Home = () => {
         }
     }
 
+    const handleCreate = async (e) => {
+        e.preventDefault();
+
+        const data = new FormData();
+        if (formData.photo && formData.caption) {
+            data.append("photo", formData.photo);
+            data.append("caption", formData.caption);
+        }
+
+        try {
+            const response = await axiosInstance.post('/Posts/create', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            fetchGrams();
+        } catch (erro) {
+            console.error(error);
+        }
+    }
+
     return (
         <h2>Home</h2>
     );
