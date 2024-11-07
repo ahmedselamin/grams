@@ -84,7 +84,7 @@ const Home = () => {
     }, []);
 
     return (
-        <Box sx={{ padding: 20 }}>
+        <Box sx={{ padding: '20px' }}>
             {isAuthenticated ? (
                 <Container>
                     <Typography>
