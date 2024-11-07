@@ -18,7 +18,7 @@ import { AuthContext } from "../authContext";
 
 const Home = () => {
     const { isAuthenticated } = useContext(AuthContext);
-    const [post, setPosts] = useState([]);
+    const [posts, setPosts] = useState([]);
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         caption: "",
@@ -87,7 +87,7 @@ const Home = () => {
         <Box sx={{ padding: '20px' }}>
             {isAuthenticated ? (
                 <Container>
-                    <Typography>
+                    <Typography variant="h6" align="left">
                         Welcome back!
                     </Typography>
 
@@ -110,7 +110,18 @@ const Home = () => {
                         </Button>
                     </Box>
                 </Container>
-            ): null}
+            ) : null}
+            <Stack spacing={3} sx={{ maxWidth: '450px', margin: '0 auto' }}>
+                {posts.length === 0 ? (
+                    <Typography variant="h6" align="center">
+                        Nothing to see here.
+                    </Typography>
+                ) : (
+                    <Typography variant="h6" align="center">
+                        something is here
+                    </Typography>
+                )}
+            </Stack>
         </Box>
     );
 
