@@ -7,7 +7,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
 
     const register = async (formData) => {
         try {
@@ -28,21 +28,25 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await axiosInstance.post('/Auth/login', {
                 username: formData.username,
-                password: formData.password
+                password: formData.password,
             });
 
-            const token = response.data.token;
+            const token = response.data?.token;
 
-            localStorage.setItem('token', token);
-
-            setIsAuthenticated(true);
-            return true;
-            
+            if (token) {
+                localStorage.setItem('token', token);
+                setIsAuthenticated(true);
+                return true;
+            } else {
+                console.error("Login failed: no token received");
+                return false;
+            }
         } catch (error) {
-            console.error(error)
+            console.error("Login Error:", error);
             return false;
         }
-    }
+    };
+
 
     const logout = () => {
         setIsAuthenticated(false);
