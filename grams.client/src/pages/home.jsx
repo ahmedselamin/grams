@@ -22,7 +22,7 @@ const Home = () => {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         caption: "",
-        photo: null,
+        file: null,
     });
 
     const handleInputChange = (e) => {
@@ -35,14 +35,14 @@ const Home = () => {
     const handleImageChange = (e) => {
         setFormData({
             ...formData,
-            photo: e.target.files[0],
+            file: e.target.files[0],
         });
     };
 
     const clearForm = () => {
         setFormData({
             caption: "",
-            photo: null,
+            file: null,
         })
     };
 
@@ -66,8 +66,10 @@ const Home = () => {
         e.preventDefault();
 
         const data = new FormData();
-        if (formData.photo && formData.caption) {
-            data.append("photo", formData.photo);
+        if (formData.file) {
+            data.append("file", formData.file);
+        }
+        if (formData.caption) {
             data.append("caption", formData.caption);
         }
 
@@ -81,7 +83,7 @@ const Home = () => {
 
             fetchGrams();
 
-        } catch (erro) {
+        } catch (error) {
             console.error(error);
         }
     }
