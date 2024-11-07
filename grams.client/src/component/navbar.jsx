@@ -23,7 +23,32 @@ const Navbar = () => {
     };
 
     return (
-        
+        <AppBar position="sticky"
+            sx={{
+                backgroundColor: '#005477',
+                color: 'white',
+                borderRadius: "40px",
+                margin: '0 auto',
+                maxWidth: '1500px',
+                padding: '10px 20px'
+            }}>
+            <Toolbar>
+                <Typography
+                    variant="h4"
+                    component={Link}
+                    to="/"
+                    sx={{
+                        flexGrow: 1,
+                        textDecoration: 'none',
+                        color: 'white',
+                        fontWeight: 'bold',
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}>
+                    Grams
+                </Typography>
+            </Toolbar>
+        </AppBar>
     );
 };
 
