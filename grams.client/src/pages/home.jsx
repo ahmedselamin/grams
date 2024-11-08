@@ -13,6 +13,8 @@ import {
     TextField,
     Container,
 } from "@mui/material";
+import MapsUgcOutlinedIcon from '@mui/icons-material/MapsUgcOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import axiosInstance from "../utils/axiosInstance";
 import { AuthContext } from "../authContext";
 
@@ -140,7 +142,13 @@ const Home = () => {
                                         src={`https://localhost:7267/uploads/${post.fileName}`}
                                         style={{ maxHeight: '400px', width: '300px', objectFit: 'cover', borderRadius: '10px' }}
                                     />
-                                </Box>                                
+                                </Box>
+                                <Button>
+                                    <FavoriteBorderOutlinedIcon />
+                                </Button>
+                                <Button>
+                                    <MapsUgcOutlinedIcon />
+                                </Button>
                             </CardContent>
                         </Card>
                     )
