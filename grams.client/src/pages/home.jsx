@@ -132,14 +132,12 @@ const Home = () => {
                     posts.map((post) =>
                         <Card key={post._id} sx={{ backgroundColor: '#ffffff', borderRadius: '20px', boxShadow: 2, padding: '15px' }}> 
                             <CardContent>
-                                {post.file && (
-                                    <Box sx={{ display: 'flex', justifyContent: 'center', marginY: '10px' }}>
-                                        <img
-                                            src={`https://localhost:7267/uploads/${post.fileName}`}
-                                            style={{ maxHeight: '300px', width: '300px', objectFit: 'cover', borderRadius: '8px' }}
-                                        />
-                                    </Box>
-                                )}
+                                <Box sx={{ display: 'flex', justifyContent: 'center', marginY: '10px' }}>
+                                    <img
+                                        src={`https://localhost:7267/uploads/${post.fileName}`}
+                                        style={{ maxHeight: '300px', width: '300px', objectFit: 'cover', borderRadius: '8px' }}
+                                    />
+                                </Box>
                                 <Typography variant="body2" color="text.secondary" sx={{ marginY: '10px' }}>
                                     {post.caption}
                                 </Typography>
