@@ -132,15 +132,15 @@ const Home = () => {
                     posts.map((post) =>
                         <Card key={post._id} sx={{ backgroundColor: '#ffffff', borderRadius: '20px', boxShadow: 2, padding: '15px' }}> 
                             <CardContent>
-                                <Box sx={{ display: 'flex', justifyContent: 'center', marginY: '10px' }}>
-                                    <img
-                                        src={`https://localhost:7267/uploads/${post.fileName}`}
-                                        style={{ maxHeight: '300px', width: '300px', objectFit: 'cover', borderRadius: '8px' }}
-                                    />
-                                </Box>
-                                <Typography variant="body2" color="text.secondary" sx={{ marginY: '10px' }}>
+                                <Typography variant="body2" sx={{ display: 'flex', justifyContent: 'begin', marginY: '10px' }}>
                                     {post.caption}
                                 </Typography>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', marginY: '8px' }}>
+                                    <img
+                                        src={`https://localhost:7267/uploads/${post.fileName}`}
+                                        style={{ maxHeight: '400px', width: '300px', objectFit: 'cover', borderRadius: '10px' }}
+                                    />
+                                </Box>                                
                             </CardContent>
                         </Card>
                     )
