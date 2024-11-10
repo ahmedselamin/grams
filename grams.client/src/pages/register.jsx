@@ -47,7 +47,7 @@ const RegisterPage = () => {
                         textAlign: 'center'
                     }}
                 >
-                    Discover and Share Recipes
+                    Share Pictures with people.
                 </Typography>
                 <Typography
                     variant="body1"
@@ -56,7 +56,7 @@ const RegisterPage = () => {
                         textAlign: 'center',
                     }}
                 >
-                    Please log add credentials to register.
+                    Please add credentials to register.
                 </Typography>
 
                 <Box component="form" onSubmit={handleRegister} noValidate autoComplete="off" sx={{ width: '100%' }}>
