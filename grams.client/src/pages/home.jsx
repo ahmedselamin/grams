@@ -139,7 +139,7 @@ const Home = () => {
                                 </Typography>
                                 <Box sx={{ display: 'flex', justifyContent: 'center', marginY: '8px' }}>
                                     <img
-                                        src={`https://localhost:7267/uploads/${post.fileName}`}
+                                        src={`http://localhost:5142/uploads/${post.fileName}`}
                                         style={{ maxHeight: '400px', width: '300px', objectFit: 'cover', borderRadius: '10px' }}
                                     />
                                 </Box>
